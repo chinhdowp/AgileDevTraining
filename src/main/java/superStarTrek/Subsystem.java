@@ -4,7 +4,7 @@ public class Subsystem {
 
 	public static final int MAX_ENERGY = 10000;
 	protected boolean up = false;
-	protected int energy;
+	private int energy;
 
 	public boolean isUp() {
 		return up;

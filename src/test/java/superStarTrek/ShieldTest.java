@@ -22,7 +22,7 @@ public class ShieldTest {
 	}
 		
 	@Test
-	public void canTransferEnergy0() {
+	public void canTransferEnergy_0() {
 		int prevEnergy = shield.energy();
 		shield.transferAndReturnUnused(0);
 		Assert.assertEquals(prevEnergy, shield.energy());
@@ -39,11 +39,11 @@ public class ShieldTest {
 	@Test
 	public void canTransferEnergy_UpToMaxAmt() {
 		int prevEnergy = shield.energy();
-		shield.transferAndReturnUnused(Shield.MAX_ENERGY - shield.energy);
-		Assert.assertEquals(shield.MAX_ENERGY, shield.energy());
+		shield.transferAndReturnUnused(Shield.MAX_ENERGY - shield.energy());
+		Assert.assertEquals(Shield.MAX_ENERGY, shield.energy());
 	} 
 	
-	@Test public void canTransferExtraAndGetBack() {
+	@Test public void canTransfer_MoreThanMaxAmtAndGetBackRemainder() {
 		int remain = shield.transferAndReturnUnused(6000);
 		Assert.assertEquals(1000, remain);
 		Assert.assertEquals(Subsystem.MAX_ENERGY, shield.energy());
@@ -58,7 +58,7 @@ public class ShieldTest {
 	}
 	
 	@Test
-	public void canTakeAHitAndReturnExtra() {
+	public void canTakeAHit_AndReturnExtra() {
 		int expectedExtra = 1000;
 		shield.raise();
 		int actualExtra = shield.takeHit(Shield.MAX_ENERGY - shield.energy() + expectedExtra);

@@ -17,12 +17,12 @@ public class Shield extends Subsystem {
 	
 	public int transferAndReturnUnused(int amt) { 
 		int remain = 0;
-		if (energy + amt < MAX_ENERGY) {
-			setEnergy(energy + amt);	
+		if (energy() + amt < MAX_ENERGY) {
+			setEnergy(energy() + amt);	
 		}
 		else {
-			remain = amt - (MAX_ENERGY - energy);
-			setEnergy(energy + MAX_ENERGY - energy);	
+			remain = amt - (MAX_ENERGY - energy());
+			setEnergy(energy() + MAX_ENERGY - energy());	
 		}
 		
 		return remain;
