@@ -20,7 +20,6 @@ public class ShieldTest {
 		shield.raise();
 		Assert.assertTrue(shield.isUp());
 	}
-	
 		
 	@Test
 	public void canTransferEnergy0() {
@@ -31,9 +30,10 @@ public class ShieldTest {
 	
 	@Test
 	public void canTransferEnergy_1() {
+		int xFerAmt = 1;
 		int prevEnergy = shield.energy();
-		shield.transferAndReturnUnused(1);
-		Assert.assertEquals(prevEnergy + 1, shield.energy());
+		shield.transferAndReturnUnused(xFerAmt);
+		Assert.assertEquals(prevEnergy + xFerAmt, shield.energy());
 	}
 	
 	@Test
@@ -53,7 +53,7 @@ public class ShieldTest {
 	public void canTakeAHit_1() {
 		shield.raise();
 		int extraDamage = shield.takeHit(1);
-		Assert.assertEquals(4999, shield.energy());
+		Assert.assertEquals(Shield.INITIAL_ENERGY - 1, shield.energy());
 		Assert.assertEquals(0, extraDamage);
 	}
 	

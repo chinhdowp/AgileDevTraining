@@ -4,6 +4,7 @@ public class Subsystem {
 
 	public static final int MAX_ENERGY = 10000;
 	protected boolean up = false;
+	protected int energy;
 
 	public boolean isUp() {
 		return up;
@@ -13,13 +14,12 @@ public class Subsystem {
 		return energy;
 	}
 
-	protected void addEnergy(int value) {
-		energy += value;
-		if (energy<=0)
+	protected void setEnergy(int value) {
+		energy = value;
+		if (energy <= 0) {
 			up = false;
+		}
 	}
-
-	protected int energy = 5000;
 
 	public Subsystem() {
 		super();
@@ -29,11 +29,10 @@ public class Subsystem {
 		int extraDamage = 0;
 		
 		if(energy > damage)
-			addEnergy(-damage);
+			setEnergy(energy - damage);
 		else{
 			extraDamage = damage - energy;
-			energy = 0;  // TODO
-			up = false;
+			setEnergy(0);
 		}
 		
 		return extraDamage;
