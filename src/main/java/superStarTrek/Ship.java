@@ -1,22 +1,30 @@
 package superStarTrek;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Ship {
-	public Ship() {
-		subsystems = new HashMap<String, Subsystem>();
-		subsystems.put(SubsystemNames.Phaser, new Subsystem());
-		subsystems.put(SubsystemNames.Torpedo, new Subsystem());
+	
+	private LinkedHashMap<String, Subsystem> subsystems;
+	private int energy = 8000;
+	private Random generator;
+	
+	public Ship(Random generator) {
+		subsystems = new LinkedHashMap<String, Subsystem>();
+		subsystems.put(SubsystemNames.Phaser, new Phaser());
+		subsystems.put(SubsystemNames.Torpedo, new Phaser());
+		subsystems.put(SubsystemNames.Engine, new Engine());
 		subsystems.put(SubsystemNames.Shield, new Shield());
-		subsystems.put(SubsystemNames.Engine, new Subsystem());
+		this.generator = generator;
 	}
 	
 	public Map<String, Subsystem> getSubsystems() {
 		return subsystems;
 	}
 	
-	public void setSubsystems(Map<String, Subsystem> subsystems) {
+	public void setSubsystems(LinkedHashMap<String, Subsystem> subsystems) {
 		this.subsystems = subsystems;
 	}
 
@@ -27,6 +35,10 @@ public class Ship {
 		public static final String Engine = "Engine";
 	}
 	
-	private Map<String, Subsystem> subsystems;
-	private int energy = 8000;
+	public void causeDamage(int damageAmt) {
+		int r = generator.next(subsystems.size() - 1);
+		Subsystem subsystem = new ArrayList<Subsystem>(subsystems.values()).get(r);
+		subsystem.causeDamage(damageAmt);
+	}
+	
 }
