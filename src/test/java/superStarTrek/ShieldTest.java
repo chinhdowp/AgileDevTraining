@@ -38,7 +38,6 @@ public class ShieldTest {
 	
 	@Test
 	public void canTransferEnergy_UpToMaxAmt() {
-		int prevEnergy = shield.energy();
 		shield.transferAndReturnUnused(Shield.MAX_ENERGY - shield.energy());
 		Assert.assertEquals(Shield.MAX_ENERGY, shield.energy());
 	} 
@@ -46,7 +45,7 @@ public class ShieldTest {
 	@Test public void canTransfer_MoreThanMaxAmtAndGetBackRemainder() {
 		int remain = shield.transferAndReturnUnused(6000);
 		Assert.assertEquals(1000, remain);
-		Assert.assertEquals(Subsystem.MAX_ENERGY, shield.energy());
+		Assert.assertEquals(Shield.MAX_ENERGY, shield.energy());
 	}
 	
 	@Test
@@ -59,12 +58,18 @@ public class ShieldTest {
 	
 	@Test
 	public void canTakeAHit_AndReturnExtra() {
-		int expectedExtra = 1000;
+		int expectedRemainingEnergy = 1000;
 		shield.raise();
-		int actualExtra = shield.takeHit(Shield.MAX_ENERGY - shield.energy() + expectedExtra);
+		int actualRemainingEnergy = shield.takeHit(Shield.MAX_ENERGY - shield.energy() + expectedRemainingEnergy);
 		Assert.assertEquals(0, shield.energy());
-		Assert.assertEquals(expectedExtra, actualExtra);
+		Assert.assertEquals(expectedRemainingEnergy, actualRemainingEnergy);
 		Assert.assertFalse(shield.isUp());
+		
+		// Damage random subsystem
+		int totalSubsystemEnergyBefore = parent.getTotalSubsystemEnergy();
+		parent.damageSubsystem(actualRemainingEnergy);
+		Assert.assertEquals(totalSubsystemEnergyBefore - actualRemainingEnergy, parent.getTotalSubsystemEnergy());
+		
 	}
 	
 	Shield shield;

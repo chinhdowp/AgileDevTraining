@@ -1,10 +1,9 @@
 package superStarTrek;
 
 public class Subsystem {
-
-	public static final int MAX_ENERGY = 10000;
 	protected boolean up = false;
 	private int energy;
+	private int health; // stardates
 
 	public boolean isUp() {
 		return up;

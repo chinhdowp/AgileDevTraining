@@ -6,6 +6,7 @@ package superStarTrek;
  */
 public class Shield extends Subsystem {
 	public static final int INITIAL_ENERGY = 5000;
+	public static final int MAX_ENERGY = 10000;
 	
 	public Shield() {
 		setEnergy(INITIAL_ENERGY);
